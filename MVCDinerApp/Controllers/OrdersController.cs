@@ -1,4 +1,5 @@
 ﻿using DataLibrary.Data;
+using DataLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVCDinerApp.Models;
@@ -36,6 +37,23 @@ namespace MVCDinerApp.Controllers
            });
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(OrderModel order)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View();
+            }
+
+            var food = await _foodData.GetFood();
+
+            order.Total = order.Quantity * food.Where(x => x.Id == order.FoodId).First().Price;
+
+            int id = await _orderData.CreateOrder(order);
+
+            return RedirectToAction("Create");
         }
     }
 }
