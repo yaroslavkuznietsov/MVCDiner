@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model MVCDinerApp.Models.OrderDisplayModel
+
+@{
+    ViewData["Tittle"] = "Display";
+}
+
+<h1>Display</h1>
+
+@if (Model.Order is null)
+{
+    <h4>The requested model was not found.</h4>
+}
+else
+{
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><strong>Order Name</strong></td>
+                <td>@Model.Order.OrderName</td>
+            </tr>
+            <tr>
+                <td><strong>Order Date</strong></td>
+                <td>@Model.Order.OrderDate</td>
+            </tr>
+            <tr>
+                <td><strong>Order Total</strong></td>
+                <td>@string.Format("{0:C}", Model.Order.Total)</td>
+            </tr>
+            <tr>
+                <td><strong>Item Ordered</strong></td>
+                <td>@Model.ItemPurchased</td>
+            </tr>
+            <tr>
+                <td><strong>Quantity</strong></td>
+                <td>@Model.Order.Quantity</td>
+            </tr>
+            @*<tr>
+                <td colspan="2">
+                    <a asp-page="./Delete" asp-route-id="@Model.Order.Id" class="btn btn-danger">Delete order</a>
+                </td>
+            </tr>*@
+        </tbody>
+    </table>
+}
